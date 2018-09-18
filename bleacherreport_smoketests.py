@@ -11,7 +11,7 @@ class BleacherReportSmokeTests(unittest.TestCase):
     @classmethod
     def setUp(inst):
         # Create a new Chrome session
-        inst.driver = webdriver.Chrome()
+        inst.driver = webdriver.Chrome(executable_path="/chromedriver")
         inst.driver.maximize_window()
         inst.wait = WebDriverWait(inst.driver, 5)
         inst.driver.get('https://bleacherreport.com/')
@@ -19,6 +19,11 @@ class BleacherReportSmokeTests(unittest.TestCase):
     # Check that the title of the web page is Bleacher Report
     def test_homepage_title(self):
         self.assertEqual("Bleacher Report | Sports. Highlights. News. Now.", self.driver.title, "Verify that the title of the page is Bleacher Report")
+
+    # Check that the BR logo on the top left navigates back to the homepage
+    def test_br_logo(self):
+        self.driver.find_element_by_class_name("siteLogo").click()
+        self.assertEqual(self.driver.current_url, "https://bleacherreport.com/", "Verify that clicking the BR logo navigates back to the home page")
 
     # Check that the navigation bar is loaded
     def test_navigation_bar(self):
@@ -39,6 +44,10 @@ class BleacherReportSmokeTests(unittest.TestCase):
             print("Login page did not load")
             return False
 
+    # Other Smoke tests that can be automated:
+    # - Verify Sign Up button works
+    # - Verify each tab in the navigation bar can be clicked
+    # - Verify main image on homepage can be clicked
 
     @classmethod
     def tearDown(inst):
