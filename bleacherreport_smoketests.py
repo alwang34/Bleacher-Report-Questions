@@ -10,16 +10,17 @@ class BleacherReportSmokeTests(unittest.TestCase):
 
     @classmethod
     def setUp(inst):
+        # Create a new Chrome session
         inst.driver = webdriver.Chrome()
         inst.driver.maximize_window()
         inst.wait = WebDriverWait(inst.driver, 5)
         inst.driver.get('https://bleacherreport.com/')
 
-
+    # Check that the title of the web page is Bleacher Report
     def test_homepage_title(self):
         self.assertEqual("Bleacher Report | Sports. Highlights. News. Now.", self.driver.title, "Verify that the title of the page is Bleacher Report")
 
-
+    # Check that the navigation bar is loaded
     def test_navigation_bar(self):
         try:
             self.wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@class = 'wide nav organism loaded']")))
@@ -28,7 +29,7 @@ class BleacherReportSmokeTests(unittest.TestCase):
             print("Navigation bar did not load")
             return False
 
-
+    # Check that the login page can be navigated to and the option to Sign in with phone appears
     def test_loginpage(self):
         self.driver.find_element_by_class_name('login').click()
         try:
@@ -41,6 +42,7 @@ class BleacherReportSmokeTests(unittest.TestCase):
 
     @classmethod
     def tearDown(inst):
+        # Close the browser
         inst.driver.quit()
 
 
