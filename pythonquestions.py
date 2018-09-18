@@ -48,6 +48,9 @@ def divisibility(number1, number2, number3):
 
     return answer
 
+
+guessing_game()
+
 words = common_words(["hello", "adios", "goodbye", "hola", "au revoir", "bonjour"], ["hello", "welcome","thanks", "goodbye", "please"])
 print(words)
 
